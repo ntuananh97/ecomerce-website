@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "@/components/SocialLogin";
 import { useForm, ControllerRenderProps } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import useAuthStore from "@/store/useAuthStore";
+import { toast } from "react-toastify";
+import { handleAxiosError } from "@/utils/errorHandler";
+
 
 // Define schema for form validation
 const registerSchema = yup.object({
@@ -24,7 +28,8 @@ const registerSchema = yup.object({
 type RegisterFormValues = yup.InferType<typeof registerSchema>;
 
 const Register = () => {
-  
+  const navigate = useNavigate();
+  const { register, loading } = useAuthStore();
 
   // Initialize form
   const form = useForm<RegisterFormValues>({
@@ -38,9 +43,19 @@ const Register = () => {
   });
 
   // Handle form submission
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log(data);
-    // Add registration logic here
+  const onSubmit = async (data: RegisterFormValues) => {
+    try {
+      await register({
+        email: data.email,
+        password: data.password
+      });
+      toast.success("Registration successful!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 500);
+    } catch (error) {
+      handleAxiosError(error, "Registration failed");
+    }
   };
 
   return (
@@ -126,7 +141,13 @@ const Register = () => {
               </div>
 
               {/* Sign-up button */}
-              <Button type="submit" className="w-full" disabled={!form.formState.isValid}>Sign up</Button>
+              <Button 
+                type="submit" 
+                className="w-full" 
+                disabled={!form.formState.isValid || loading.logout}
+              >
+                {loading.logout ? "Creating account..." : "Sign up"}
+              </Button>
             </form>
           </Form>
 

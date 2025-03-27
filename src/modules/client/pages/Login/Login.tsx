@@ -7,9 +7,11 @@ import { useForm, ControllerRenderProps } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "@/components/SocialLogin";
-
+import useAuthStore from "@/store/useAuthStore";
+import { handleAxiosError } from "@/utils/errorHandler";
+import { toast } from "react-toastify";
 // Define schema for form validation
 const loginSchema = yup.object({
   email: yup.string().email("Please enter a valid email").required("Email is required"),
@@ -21,6 +23,8 @@ const loginSchema = yup.object({
 type LoginFormValues = yup.InferType<typeof loginSchema>;
 
 const Login = () => {
+  const { login, loading } = useAuthStore();
+  const navigate = useNavigate();
   // Initialize form
   const form = useForm<LoginFormValues>({
     resolver: yupResolver(loginSchema),
@@ -33,9 +37,18 @@ const Login = () => {
   });
 
   // Handle form submission
-  const onSubmit = (data: LoginFormValues) => {
+  const onSubmit = async (data: LoginFormValues) => {
     console.log(data);
     // Add authentication logic here
+    try {
+      await login(data);
+      toast.success("Login successful!");
+      setTimeout(() => {
+        navigate("/");
+      }, 500);
+    } catch (error) {
+      handleAxiosError(error, "Login failed");
+    }
   };
 
   return (
@@ -121,7 +134,7 @@ const Login = () => {
               </div>
 
               {/* Sign-in button */}
-              <Button type="submit" className="w-full" disabled={!form.formState.isValid}>Sign in</Button>
+              <Button type="submit" className="w-full" disabled={!form.formState.isValid || loading.login}>{loading.login ? "Signing in..." : "Sign in"}</Button>
             </form>
           </Form>
 
