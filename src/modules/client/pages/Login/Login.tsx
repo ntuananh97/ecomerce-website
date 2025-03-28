@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "@/components/SocialLogin";
 import useAuthStore from "@/store/useAuthStore";
 import { handleAxiosError } from "@/utils/errorHandler";
-import { toast } from "react-toastify";
+import { AdminRoutes, AuthRoutes, getAdminRoutes, getAuthRoutes } from "@/routes/routes";
 // Define schema for form validation
 const loginSchema = yup.object({
   email: yup.string().email("Please enter a valid email").required("Email is required"),
@@ -42,10 +42,8 @@ const Login = () => {
     // Add authentication logic here
     try {
       await login(data);
-      toast.success("Login successful!");
-      setTimeout(() => {
-        navigate("/");
-      }, 500);
+      navigate(getAdminRoutes(AdminRoutes.Dashboard));
+
     } catch (error) {
       handleAxiosError(error, "Login failed");
     }
@@ -148,7 +146,7 @@ const Login = () => {
               className="underline text-foreground p-0 h-auto"
               asChild
             >
-              <Link to="/register">Sign up</Link>
+              <Link to={getAuthRoutes(AuthRoutes.Register)}>Sign up</Link>
             </Button>
           </p>
         </div>

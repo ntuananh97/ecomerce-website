@@ -1,22 +1,22 @@
+import { AdminLayout } from '@/layouts/AdminLayout';
 import { RouteObject } from 'react-router-dom';
-
-// import AdminLayout from '@/layouts/AdminLayout';
-// import AdminPageA from './pages/AdminPageA';
-// import AdminPageB from './pages/AdminPageB';
+import Dashboard from './pages/Dashboard/Dashboard';
+import { AdminRoutes } from '@/routes/routes';
+import ProtectedRoute from '@/components/Guard/ProtectedRoute';
 
 // Mảng route dành riêng cho admin
 export const adminRoutes: RouteObject[] = [
   {
-    path: '/admin',
-    // element: <AdminLayout />,
+    path: AdminRoutes.Admin,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
-        path: 'page-a',
-        // element: <AdminPageA />
-      },
-      {
-        path: 'page-b',
-        // element: <AdminPageB />
+        path: AdminRoutes.Dashboard,
+        element: <Dashboard />
       }
     ]
   }

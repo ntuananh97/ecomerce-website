@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import useAuthStore from "@/store/useAuthStore";
 import { toast } from "react-toastify";
 import { handleAxiosError } from "@/utils/errorHandler";
-
+import { AuthRoutes, getAuthRoutes } from "@/routes/routes";
 
 // Define schema for form validation
 const registerSchema = yup.object({
@@ -51,7 +51,7 @@ const Register = () => {
       });
       toast.success("Registration successful!");
       setTimeout(() => {
-        navigate("/login");
+        navigate(getAuthRoutes(AuthRoutes.Login));
       }, 500);
     } catch (error) {
       handleAxiosError(error, "Registration failed");
@@ -159,7 +159,7 @@ const Register = () => {
               className="underline text-foreground p-0 h-auto"
               asChild
             >
-              <Link className="underline text-foreground" to="/login">
+              <Link className="underline text-foreground" to={getAuthRoutes(AuthRoutes.Login)}>
                 Sign in
               </Link>
             </Button>

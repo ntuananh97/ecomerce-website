@@ -18,4 +18,8 @@ export interface IAuthResponse {
   };
 }
 
+export interface IGetMeResponse {
+  data: IUser;
+}
+
 

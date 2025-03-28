@@ -1,8 +1,8 @@
-import { login, register } from '@/services/api/authService';
-import { ILoginFormValues, IRegisterFormValues } from '@/types/authTypes';
-import { IUser } from '@/types/userTypes';
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware';
+import { getMe, login, register } from "@/services/api/authService";
+import { ILoginFormValues, IRegisterFormValues } from "@/types/authTypes";
+import { IUser } from "@/types/userTypes";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface AuthState {
   user: IUser | null;
@@ -13,29 +13,55 @@ interface AuthState {
     login: boolean;
     logout: boolean;
     register: boolean;
+    checkAuth: boolean;
   };
   login: (data: ILoginFormValues) => Promise<void>;
   register: (data: IRegisterFormValues) => Promise<void>;
   logout: () => Promise<void>;
+  getMe: () => Promise<void>;
+}
+
+const initialAuthenticationState: Pick<AuthState, 'user' | 'isAuthenticated' | 'access_token' | 'refresh_token'> = {
+  user: null,
+  isAuthenticated: false,
+  access_token: undefined,
+  refresh_token: undefined,
+  
 }
 
 const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      user: null,
-      token: null,
-      isAuthenticated: false,
+      ...initialAuthenticationState,
       loading: {
         login: false,
         logout: false,
         register: false,
+        checkAuth: false,
+      },
+
+      getMe: async () => {
+        set((state) => ({ loading: { ...state.loading, checkAuth: true } }));
+        try {
+          const response = await getMe();
+          set({
+            user: response.data,
+            isAuthenticated: true,
+          });
+        } catch {
+          set(() => ({
+            ...initialAuthenticationState,
+            }));
+        } finally {
+          set((state) => ({ loading: { ...state.loading, checkAuth: false } }));
+        }
       },
 
       login: async (data: ILoginFormValues) => {
         set((state) => ({ loading: { ...state.loading, login: true } }));
         try {
           const response = await login(data);
-          
+
           set({
             user: response.data.user,
             access_token: response.data.access_token,
@@ -65,10 +91,7 @@ const useAuthStore = create<AuthState>()(
         try {
           // Add API logout call here if needed
           set({
-            user: null,
-            access_token: undefined,
-            refresh_token: undefined,
-            isAuthenticated: false,
+            ...initialAuthenticationState,
             loading: { ...useAuthStore.getState().loading, logout: false },
           });
         } catch (error) {
@@ -78,9 +101,9 @@ const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: 'auth-storage', // unique name for localStorage
-      partialize: (state) => ({ 
-        // user: state.user,
+      name: "auth-storage", // unique name for localStorage
+      partialize: (state) => ({
+        user: state.user,
         isAuthenticated: state.isAuthenticated,
         access_token: state.access_token,
         refresh_token: state.refresh_token,
