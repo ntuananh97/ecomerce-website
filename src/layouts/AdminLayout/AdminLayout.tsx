@@ -38,7 +38,8 @@ import {
 } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { Outlet } from "react-router-dom";
-
+import ModeToggle from "@/components/ThemToggle";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 const data = {
   user: {
     name: "shadcn",
@@ -187,21 +188,28 @@ function AdminLayout({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Sidebar>
         <SidebarInset>
           <header>
-            <div className="flex  px-4 h-12 md:h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-border">
-              <SidebarTrigger className="-ml-1" />
-              <Separator orientation="vertical" className="mr-2 h-4" />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">Settings</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>API Settings</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
+            <div className="flex  px-4 h-12 md:h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-border">
+              <div className="flex h-full shrink-0 items-center gap-2  ">
+                <SidebarTrigger className="-ml-1" />
+                <Separator orientation="vertical" className="mr-2 h-4" />
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem className="hidden md:block">
+                      <BreadcrumbLink href="#">Settings</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>API Settings</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+              <div className="flex items-center gap-2">
+                <ModeToggle />
+                <LanguageSwitcher />
+              </div>
             </div>
+
             <div className="px-4 py-4 md:py-6 flex flex-col border-b border-border">
               {/* Main content */}
               <div className="flex justify-between md:items-center gap-4 md:flex-row flex-col">
@@ -221,7 +229,7 @@ function AdminLayout({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {/* Main content */}
           <div className="flex flex-1 flex-col gap-4 p-4">
             <div className="w-full text-muted-foreground p-6 border border-border rounded-md bg-muted text-center border-dashed">
-                <Outlet />
+              <Outlet />
             </div>
           </div>
         </SidebarInset>

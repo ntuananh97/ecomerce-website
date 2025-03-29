@@ -1,0 +1,41 @@
+{
+    "hello": "Xin chào",
+    "welcome": "Chào mừng đến với ứng dụng của tôi",
+    "switch_language": "Đổi ngôn ngữ",
+    "logout": "Đăng xuất",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "validation": {
+      "email": {
+        "required": "Email là bắt buộc",
+        "invalid": "Vui lòng nhập email hợp lệ"
+      },
+      "password": {
+        "required": "Mật khẩu là bắt buộc",
+        "minLength": "Mật khẩu phải có ít nhất {{min}} ký tự"
+      },
+      "confirmPassword": {
+        "required": "Vui lòng xác nhận mật khẩu",
+        "match": "Mật khẩu không khớp"
+      }
+    },
+    "login": {
+      "title": "Đăng nhập",
+      "keepSignedIn": "Giữ đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "signInButton": "Đăng nhập",
+      "signingIn": "Đang đăng nhập...",
+      "noAccount": "Bạn chưa có tài khoản?",
+      "signUp": "Đăng ký"
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "subtitle": "Hãy bắt đầu. Điền thông tin bên dưới để tạo tài khoản của bạn.",
+      "confirmPassword": "Xác nhận mật khẩu",
+      "passwordHint": "Tối thiểu 8 ký tự.",
+      "signUpButton": "Đăng ký",
+      "creatingAccount": "Đang tạo tài khoản...",
+      "haveAccount": "Bạn đã có tài khoản?",
+      "signIn": "Đăng nhập"
+    }
+  }

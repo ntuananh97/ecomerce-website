@@ -1,5 +1,3 @@
-"use client"
-
 import {
   BadgeCheck,
   Bell,
@@ -31,11 +29,12 @@ import {
 } from "@/components/ui/sidebar"
 import useAuthStore from "@/store/useAuthStore";
 import { DEFAULT_AVATAR } from "@/constants";
+import { useTranslation } from "react-i18next"
 
 export function NavUser() {
   const { isMobile } = useSidebar();
   const { user, logout } = useAuthStore();
-
+  const { t } = useTranslation();
   const fullName = user ? `${user?.firstName} ${user?.lastName}` : "";
 
   const handleLogout = () => {
@@ -112,7 +111,7 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut className="size-4 mr-2" />
-              Log out
+              {t('logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

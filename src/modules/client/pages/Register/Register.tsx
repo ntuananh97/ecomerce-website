@@ -10,24 +10,27 @@ import useAuthStore from "@/store/useAuthStore";
 import { toast } from "react-toastify";
 import { handleAxiosError } from "@/utils/errorHandler";
 import { AuthRoutes, getAuthRoutes } from "@/routes/routes";
+import { useTranslation } from "react-i18next";
 
 // Define schema for form validation
-const registerSchema = yup.object({
-  email: yup.string().email("Please enter a valid email").required("Email is required"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters"),
-  confirmPassword: yup
-    .string()
-    .required("Please confirm your password")
-    .oneOf([yup.ref("password")], "Passwords must match"),
-});
-
-// Type for our form values
-type RegisterFormValues = yup.InferType<typeof registerSchema>;
-
 const Register = () => {
+  const { t } = useTranslation();
+
+  const registerSchema = yup.object({
+    email: yup.string().email(t('validation.email.invalid')).required(t('validation.email.required')),
+    password: yup
+      .string()
+      .required(t('validation.password.required'))
+      .min(8, t('validation.password.minLength', { min: 8 })),
+    confirmPassword: yup
+      .string()
+      .required(t('validation.confirmPassword.required'))
+      .oneOf([yup.ref("password")], t('validation.confirmPassword.match')),
+  });
+
+  // Type for our form values
+  type RegisterFormValues = yup.InferType<typeof registerSchema>;
+
   const navigate = useNavigate();
   const { register, loading } = useAuthStore();
 
@@ -60,18 +63,17 @@ const Register = () => {
 
   return (
     <>
-    <title>Create an account</title>
+    <title>{t('register.title')}</title>
     <div className="md:flex items-center justify-center min-h-screen bg-background">
       <div className="md:w-full md:flex items-center justify-center px-6 py-24 relative">
         <div className="w-full max-w-sm space-y-6 m-auto">
           {/* Header */}
           <div className="space-y-2 text-center">
             <h1 className="text-2xl md:text-3xl font-bold mb-3">
-              Create an account
+              {t('register.title')}
             </h1>
             <p className="text-muted-foreground text-sm">
-              Let's get started. Fill in the details below to create your
-              account.
+              {t('register.subtitle')}
             </p>
           </div>
 
@@ -85,10 +87,10 @@ const Register = () => {
                   name="email"
                   render={({ field }: { field: ControllerRenderProps<RegisterFormValues, "email"> }) => (
                     <FormItem>
-                      <FormLabel>Email <span className="text-destructive">*</span></FormLabel>
+                      <FormLabel>{t('email')} <span className="text-destructive">*</span></FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder="Email" 
+                          placeholder={t('email')} 
                           type="email"
                           {...field} 
                         />
@@ -104,17 +106,17 @@ const Register = () => {
                   name="password"
                   render={({ field }: { field: ControllerRenderProps<RegisterFormValues, "password"> }) => (
                     <FormItem>
-                      <FormLabel>Password <span className="text-destructive">*</span></FormLabel>
+                      <FormLabel>{t('password')} <span className="text-destructive">*</span></FormLabel>
                       <FormControl>
                         <Input 
                           type="password" 
-                          placeholder="Password" 
+                          placeholder={t('password')} 
                           {...field} 
                         />
                       </FormControl>
                       <FormMessage />
                       <p className="text-sm text-muted-foreground">
-                        Minimum 8 characters.
+                        {t('register.passwordHint')}
                       </p>
                     </FormItem>
                   )}
@@ -126,11 +128,11 @@ const Register = () => {
                   name="confirmPassword"
                   render={({ field }: { field: ControllerRenderProps<RegisterFormValues, "confirmPassword"> }) => (
                     <FormItem>
-                      <FormLabel>Confirm Password <span className="text-destructive">*</span></FormLabel>
+                      <FormLabel>{t('register.confirmPassword')} <span className="text-destructive">*</span></FormLabel>
                       <FormControl>
                         <Input 
                           type="password" 
-                          placeholder="Confirm Password" 
+                          placeholder={t('register.confirmPassword')} 
                           {...field} 
                         />
                       </FormControl>
@@ -146,21 +148,21 @@ const Register = () => {
                 className="w-full" 
                 disabled={!form.formState.isValid || loading.logout}
               >
-                {loading.logout ? "Creating account..." : "Sign up"}
+                {loading.logout ? t('register.creatingAccount') : t('register.signUpButton')}
               </Button>
             </form>
           </Form>
 
           <SocialLogin />
           <p className="text-sm text-center text-muted-foreground">
-            Already have account?{" "}
+            {t('register.haveAccount')}{" "}
             <Button
               variant="link"
               className="underline text-foreground p-0 h-auto"
               asChild
             >
               <Link className="underline text-foreground" to={getAuthRoutes(AuthRoutes.Login)}>
-                Sign in
+                {t('register.signIn')}
               </Link>
             </Button>
           </p>

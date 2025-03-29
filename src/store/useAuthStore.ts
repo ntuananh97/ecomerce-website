@@ -19,6 +19,7 @@ interface AuthState {
   register: (data: IRegisterFormValues) => Promise<void>;
   logout: () => Promise<void>;
   getMe: () => Promise<void>;
+  saveToken: (access_token: string) => void;
 }
 
 const initialAuthenticationState: Pick<AuthState, 'user' | 'isAuthenticated' | 'access_token' | 'refresh_token'> = {
@@ -99,6 +100,9 @@ const useAuthStore = create<AuthState>()(
           throw error;
         }
       },
+      saveToken: (access_token: string) => {
+        set({ access_token });
+      }
     }),
     {
       name: "auth-storage", // unique name for localStorage

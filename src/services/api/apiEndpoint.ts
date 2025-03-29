@@ -4,7 +4,8 @@ export const API_ENDPOINT = {
     INDEX: `/auth`,
     AUTH_ME: `/auth/me`,
     REGISTER: `/auth/register`,
-    LOGIN: `/auth/login`
+    LOGIN: `/auth/login`,
+    REFRESH_TOKEN: `/auth/refresh-token`
   },
   SYSTEM: {
     ROLE: {

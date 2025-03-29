@@ -1,0 +1,41 @@
+{
+    "hello": "Hello",
+    "welcome": "Welcome to my app",
+    "switch_language": "Switch Language",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "validation": {
+      "email": {
+        "required": "Email is required",
+        "invalid": "Please enter a valid email"
+      },
+      "password": {
+        "required": "Password is required",
+        "minLength": "Password must be at least {{min}} characters"
+      },
+      "confirmPassword": {
+        "required": "Please confirm your password",
+        "match": "Passwords must match"
+      }
+    },
+    "login": {
+      "title": "Sign in",
+      "keepSignedIn": "Keep me signed in",
+      "forgotPassword": "Forgot password?",
+      "signInButton": "Sign in",
+      "signingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Let's get started. Fill in the details below to create your account.",
+      "confirmPassword": "Confirm Password",
+      "passwordHint": "Minimum 8 characters.",
+      "signUpButton": "Sign up",
+      "creatingAccount": "Creating account...",
+      "haveAccount": "Already have account?",
+      "signIn": "Sign in"
+    }
+  }

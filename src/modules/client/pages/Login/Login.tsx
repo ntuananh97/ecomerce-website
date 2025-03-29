@@ -12,17 +12,21 @@ import SocialLogin from "@/components/SocialLogin";
 import useAuthStore from "@/store/useAuthStore";
 import { handleAxiosError } from "@/utils/errorHandler";
 import { AdminRoutes, AuthRoutes, getAdminRoutes, getAuthRoutes } from "@/routes/routes";
+import { useTranslation } from "react-i18next";
+
 // Define schema for form validation
-const loginSchema = yup.object({
-  email: yup.string().email("Please enter a valid email").required("Email is required"),
-  password: yup.string().required("Password is required").min(6, "Password must be at least 6 characters"),
-  keepSignedIn: yup.boolean().default(false),
-});
-
-// Type for our form values
-type LoginFormValues = yup.InferType<typeof loginSchema>;
-
 const Login = () => {
+  const { t } = useTranslation();
+  
+  const loginSchema = yup.object({
+    email: yup.string().email(t('validation.email.invalid')).required(t('validation.email.required')),
+    password: yup.string().required(t('validation.password.required')).min(6, t('validation.password.minLength', { min: 6 })),
+    keepSignedIn: yup.boolean().default(false),
+  });
+  
+  // Type for our form values
+  type LoginFormValues = yup.InferType<typeof loginSchema>;
+  
   const { login, loading } = useAuthStore();
   const navigate = useNavigate();
   // Initialize form
@@ -59,7 +63,7 @@ const Login = () => {
         <div className="w-full max-w-sm space-y-6 m-auto">
           {/* Header */}
           <div className="space-y-2 text-center">
-            <h1 className="text-3xl font-bold">Sign in</h1>
+            <h1 className="text-3xl font-bold">{t('login.title')}</h1>
          
           </div>
 
@@ -71,10 +75,10 @@ const Login = () => {
                 name="email"
                 render={({ field }: { field: ControllerRenderProps<LoginFormValues, "email"> }) => (
                   <FormItem>
-                    <FormLabel>Email <span className="text-destructive">*</span></FormLabel>
+                    <FormLabel>{t('email')} <span className="text-destructive">*</span></FormLabel>
                     <FormControl>
                       <Input 
-                        placeholder="Email" 
+                        placeholder={t('email')} 
                         type="email"
                         {...field} 
                       />
@@ -90,11 +94,11 @@ const Login = () => {
                 name="password"
                 render={({ field }: { field: ControllerRenderProps<LoginFormValues, "password"> }) => (
                   <FormItem>
-                    <FormLabel>Password <span className="text-destructive">*</span></FormLabel>
+                    <FormLabel>{t('password')} <span className="text-destructive">*</span></FormLabel>
                     <FormControl>
                       <Input 
                         type="password" 
-                        placeholder="Password" 
+                        placeholder={t('password')} 
                         {...field} 
                       />
                     </FormControl>
@@ -117,7 +121,7 @@ const Login = () => {
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>
-                      <Label htmlFor="keep-signed-in">Keep me signed in</Label>
+                      <Label htmlFor="keep-signed-in">{t('login.keepSignedIn')}</Label>
                     </FormItem>
                   )}
                 />
@@ -127,12 +131,14 @@ const Login = () => {
                   type="button"
                   asChild
                 >
-                  <a href="#">Forgot password?</a>
+                  <a href="#">{t('login.forgotPassword')}</a>
                 </Button>
               </div>
 
               {/* Sign-in button */}
-              <Button type="submit" className="w-full" disabled={!form.formState.isValid || loading.login}>{loading.login ? "Signing in..." : "Sign in"}</Button>
+              <Button type="submit" className="w-full" disabled={!form.formState.isValid || loading.login}>
+                {loading.login ? t('login.signingIn') : t('login.signInButton')}
+              </Button>
             </form>
           </Form>
 
@@ -140,13 +146,13 @@ const Login = () => {
 
           {/* Sign-up link */}
           <p className="text-sm text-center text-muted-foreground">
-            Don't have an account?{" "}
+            {t('login.noAccount')}{" "}
             <Button
               variant="link"
               className="underline text-foreground p-0 h-auto"
               asChild
             >
-              <Link to={getAuthRoutes(AuthRoutes.Register)}>Sign up</Link>
+              <Link to={getAuthRoutes(AuthRoutes.Register)}>{t('login.signUp')}</Link>
             </Button>
           </p>
         </div>
