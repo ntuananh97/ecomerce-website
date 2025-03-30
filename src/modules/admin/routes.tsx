@@ -3,8 +3,8 @@ import { RouteObject } from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { AdminRoutes } from '@/routes/routes';
 import ProtectedRoute from '@/components/Guard/ProtectedRoute';
+import MyProfile from './pages/MyProfile';
 
-// Mảng route dành riêng cho admin
 export const adminRoutes: RouteObject[] = [
   {
     path: AdminRoutes.Admin,
@@ -13,10 +13,17 @@ export const adminRoutes: RouteObject[] = [
         <AdminLayout />
       </ProtectedRoute>
     ),
+    // handle: { crumb: () => 'Admin' },
     children: [
       {
         path: AdminRoutes.Dashboard,
-        element: <Dashboard />
+        element: <Dashboard />,
+        handle: { crumb: () => 'Dashboard' },
+      },
+      {
+        path: AdminRoutes.MyProfile,
+        element: <MyProfile />,
+        handle: { crumb: () => 'My Profile' },
       }
     ]
   }
