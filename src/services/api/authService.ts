@@ -1,4 +1,4 @@
-import { ILoginFormValues, IRegisterFormValues, IAuthResponse, IGetMeResponse } from "@/types/authTypes";
+import { ILoginFormValues, IRegisterFormValues, IAuthResponse, IGetMeResponse, IUpdateMeFormValues } from "@/types/authTypes";
 import api from ".";
 import { API_ENDPOINT } from "./apiEndpoint";
 
@@ -16,3 +16,9 @@ export const getMe = async (): Promise<IGetMeResponse> => {
   const response = await api.get(API_ENDPOINT.AUTH.AUTH_ME);
   return response.data;
 };
+
+export const updateMe = async (data: IUpdateMeFormValues) => {
+  const response = await api.put(API_ENDPOINT.AUTH.AUTH_ME, data);
+  return response.data;
+};
+

@@ -22,4 +22,12 @@ export interface IGetMeResponse {
   data: IUser;
 }
 
+export interface IUpdateMeFormValues {
+  firstName: string;
+  phoneNumber?: string;
+  city?: string;
+  avatar?: string;
+  role?: string;
+}
+
 

@@ -17,6 +17,12 @@
       "confirmPassword": {
         "required": "Please confirm your password",
         "match": "Passwords must match"
+      },
+      "name": {
+        "required": "Name is required"
+      },
+      "phoneNumber": {
+        "format": "Phone number must start with 0 and have 10 digits"
       }
     },
     "login": {
@@ -37,5 +43,21 @@
       "creatingAccount": "Creating account...",
       "haveAccount": "Already have account?",
       "signIn": "Sign in"
+    },
+    "profile": {
+      "title": "My Profile",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "phoneNumber": "Phone Number",
+      "city": "City",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "updateSuccess": "Update profile successfully",
+      "updateFailed": "Update profile failed",
+      "yourName": "Your name",
+      "yourEmail": "Your email",
+      "yourRole": "Your role",
+      "yourPhoneNumber": "Your phone number"
     }
   }

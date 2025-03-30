@@ -1,3 +1,5 @@
+
+
 export enum Routes {
   Home = '/',
 }
@@ -5,6 +7,7 @@ export enum Routes {
 export enum AdminRoutes {
   Admin = '/admin',
   Dashboard = 'dashboard',
+  MyProfile = 'my-profile',
 }
 
 export enum AuthRoutes {
@@ -12,6 +15,7 @@ export enum AuthRoutes {
   Login = 'login',
   Register = 'register',
 }
+
 
 export const getAdminRoutes = (route: string) => `${AdminRoutes.Admin}/${route}`;
 

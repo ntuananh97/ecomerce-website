@@ -1,5 +1,9 @@
-import { getMe, login, register } from "@/services/api/authService";
-import { ILoginFormValues, IRegisterFormValues } from "@/types/authTypes";
+import { getMe, login, register, updateMe } from "@/services/api/authService";
+import {
+  ILoginFormValues,
+  IRegisterFormValues,
+  IUpdateMeFormValues,
+} from "@/types/authTypes";
 import { IUser } from "@/types/userTypes";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -14,21 +18,25 @@ interface AuthState {
     logout: boolean;
     register: boolean;
     checkAuth: boolean;
+    updateMe: boolean;
   };
   login: (data: ILoginFormValues) => Promise<void>;
   register: (data: IRegisterFormValues) => Promise<void>;
   logout: () => Promise<void>;
   getMe: () => Promise<void>;
+  updateMe: (data: IUpdateMeFormValues) => Promise<void>;
   saveToken: (access_token: string) => void;
 }
 
-const initialAuthenticationState: Pick<AuthState, 'user' | 'isAuthenticated' | 'access_token' | 'refresh_token'> = {
+const initialAuthenticationState: Pick<
+  AuthState,
+  "user" | "isAuthenticated" | "access_token" | "refresh_token"
+> = {
   user: null,
   isAuthenticated: false,
   access_token: undefined,
   refresh_token: undefined,
-  
-}
+};
 
 const useAuthStore = create<AuthState>()(
   persist(
@@ -39,6 +47,7 @@ const useAuthStore = create<AuthState>()(
         logout: false,
         register: false,
         checkAuth: false,
+        updateMe: false,
       },
 
       getMe: async () => {
@@ -52,10 +61,23 @@ const useAuthStore = create<AuthState>()(
         } catch {
           set(() => ({
             ...initialAuthenticationState,
-            }));
+          }));
         } finally {
           set((state) => ({ loading: { ...state.loading, checkAuth: false } }));
         }
+      },
+
+      updateMe: async (data: IUpdateMeFormValues) => {
+        const response = await updateMe(data);
+        const userData = response.data;
+        
+        set(() => ({
+          user: {
+            ...userData,
+            role: useAuthStore.getState().user?.role,
+          },
+          
+        }));
       },
 
       login: async (data: ILoginFormValues) => {
@@ -102,7 +124,7 @@ const useAuthStore = create<AuthState>()(
       },
       saveToken: (access_token: string) => {
         set({ access_token });
-      }
+      },
     }),
     {
       name: "auth-storage", // unique name for localStorage

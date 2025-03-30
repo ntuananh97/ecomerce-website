@@ -30,12 +30,13 @@ import {
 import useAuthStore from "@/store/useAuthStore";
 import { DEFAULT_AVATAR } from "@/constants";
 import { useTranslation } from "react-i18next"
-
+import { Link } from "react-router-dom";
+import { AdminRoutes, getAdminRoutes } from "@/routes/routes";
 export function NavUser() {
   const { isMobile } = useSidebar();
   const { user, logout } = useAuthStore();
   const { t } = useTranslation();
-  const fullName = user ? `${user?.firstName} ${user?.lastName}` : "";
+  const fullName = user ? `${user?.firstName}` : "";
 
   const handleLogout = () => {
     logout();
@@ -58,7 +59,7 @@ export function NavUser() {
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                {/* {fullName && (<span className="truncate font-semibold">{fullName}</span>)} */}
+                {fullName && (<span className="truncate font-semibold">{fullName}</span>)}
                 
                 <span className="truncate text-xs">{user?.email}</span>
               </div>
@@ -81,7 +82,7 @@ export function NavUser() {
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  {/* <span className="truncate font-semibold">{fullName}</span> */}
+                  <span className="truncate font-semibold">{fullName}</span>
                   <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>
@@ -95,9 +96,11 @@ export function NavUser() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck className="size-4 mr-2" />
-                Account
+              <DropdownMenuItem asChild>
+                  <Link className="cursor-pointer" to={getAdminRoutes(AdminRoutes.MyProfile)}>
+                    <BadgeCheck className="size-4 mr-2" />
+                    {t('profile.title')}
+                  </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard className="size-4 mr-2" />

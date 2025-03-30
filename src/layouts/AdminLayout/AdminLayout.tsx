@@ -1,13 +1,5 @@
 import * as React from "react";
-import { Separator } from "@/components/ui/separator";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+
 import {
   AudioWaveform,
   BookOpen,
@@ -19,7 +11,6 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
-  Search,
 } from "lucide-react";
 
 import { NavMain } from "@/components/sidebar-components/nav-main";
@@ -34,12 +25,10 @@ import {
   SidebarInset,
   SidebarRail,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Input } from "@/components/ui/input";
 import { Outlet } from "react-router-dom";
-import ModeToggle from "@/components/ThemToggle";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+import TopSidebarHeader from "@/components/sidebar-components/sidebar-header";
+
 const data = {
   user: {
     name: "shadcn",
@@ -187,50 +176,10 @@ function AdminLayout({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarRail />
         </Sidebar>
         <SidebarInset>
-          <header>
-            <div className="flex  px-4 h-12 md:h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b border-border">
-              <div className="flex h-full shrink-0 items-center gap-2  ">
-                <SidebarTrigger className="-ml-1" />
-                <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#">Settings</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>API Settings</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
-              </div>
-              <div className="flex items-center gap-2">
-                <ModeToggle />
-                <LanguageSwitcher />
-              </div>
-            </div>
-
-            <div className="px-4 py-4 md:py-6 flex flex-col border-b border-border">
-              {/* Main content */}
-              <div className="flex justify-between md:items-center gap-4 md:flex-row flex-col">
-                <div className="space-y-2">
-                  <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-                    API Settings
-                  </h1>
-                </div>
-                {/* Search */}
-                <div className="relative md:max-w-xs w-full">
-                  <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input type="search" placeholder="Search" className="pl-8" />
-                </div>
-              </div>
-            </div>
-          </header>
+          <TopSidebarHeader />
           {/* Main content */}
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="w-full text-muted-foreground p-6 border border-border rounded-md bg-muted text-center border-dashed">
               <Outlet />
-            </div>
           </div>
         </SidebarInset>
       </SidebarProvider>
