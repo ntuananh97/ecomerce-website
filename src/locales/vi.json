@@ -23,6 +23,12 @@
       },
       "phoneNumber": {
         "format": "Số điện thoại phải bắt đầu bằng 0 và có 10 chữ số"
+      },
+      "currentPassword": {
+        "required": "Mật khẩu hiện tại là bắt buộc"
+      },
+      "newPassword": {
+        "required": "Mật khẩu mới là bắt buộc"
       }
     },
     "login": {
@@ -58,6 +64,14 @@
       "yourName": "Tên của bạn",
       "yourEmail": "Email của bạn",
       "yourRole": "Vai trò của bạn",
-      "yourPhoneNumber": "Số điện thoại của bạn"
+      "yourPhoneNumber": "Số điện thoại của bạn",
+      "changePassword": {
+        "title": "Đổi mật khẩu",
+        "currentPassword": "Mật khẩu hiện tại",
+        "newPassword": "Mật khẩu mới",
+        "submitButton": "Đổi mật khẩu",
+        "success": "Đổi mật khẩu thành công",
+        "error": "Đổi mật khẩu thất bại"
+      }
     }
   }

@@ -23,6 +23,12 @@
       },
       "phoneNumber": {
         "format": "Phone number must start with 0 and have 10 digits"
+      },
+      "currentPassword": {
+        "required": "Current password is required"
+      },
+      "newPassword": {
+        "required": "New password is required"
       }
     },
     "login": {
@@ -58,6 +64,14 @@
       "yourName": "Your name",
       "yourEmail": "Your email",
       "yourRole": "Your role",
-      "yourPhoneNumber": "Your phone number"
+      "yourPhoneNumber": "Your phone number",
+      "changePassword": {
+        "title": "Change Password",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "submitButton": "Change Password",
+        "success": "Password changed successfully",
+        "error": "Password change failed"
+      }
     }
   }

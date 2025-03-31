@@ -18,6 +18,7 @@ import useAuthStore from "@/store/useAuthStore";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import ChangePassWord from "./ChangePassWord";
 
 const MyProfile = () => {
   const { t } = useTranslation();
@@ -29,13 +30,13 @@ const MyProfile = () => {
   const { user, updateMe } = useAuthStore();
 
   const formSchema = yup.object({
-    name: yup.string().trim().required(t('validation.name.required')),
-    email: yup.string().email({ message: t('validation.email.invalid') }),
+    name: yup.string().trim().required(t("validation.name.required")),
+    email: yup.string().email({ message: t("validation.email.invalid") }),
     role: yup.string(),
     phoneNumber: yup
       .string()
       .notRequired()
-      .test('phone-format', t('validation.phoneNumber.format'), (value) => {
+      .test("phone-format", t("validation.phoneNumber.format"), (value) => {
         if (!value) return true;
         return /^[0][0-9]{9}$/.test(value);
       }),
@@ -79,10 +80,10 @@ const MyProfile = () => {
     try {
       setLoading(true);
       await updateMe(formData);
-      toast.success(t('profile.updateSuccess'));
+      toast.success(t("profile.updateSuccess"));
     } catch (error) {
       console.error(error);
-      toast.error(t('profile.updateFailed'));
+      toast.error(t("profile.updateFailed"));
     } finally {
       setLoading(false);
     }
@@ -96,9 +97,12 @@ const MyProfile = () => {
 
   return (
     <>
-      <title>{t('profile.title')}</title>
+      <title>{t("profile.title")}</title>
       <div className="bg-white dark:bg-gray-900 ">
-        <div className="space-y-8">
+        <section className="space-y-8">
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold">My profile</h2>
+          </div>
           {/* Avatar Upload Section */}
           <UploadAvatar
             fallbackName={form.getValues("name")}
@@ -118,10 +122,11 @@ const MyProfile = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex">
-                        {t('profile.name')} <span className="text-red-500 ml-1">*</span>
+                        {t("profile.name")}{" "}
+                        <span className="text-red-500 ml-1">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder={t('profile.yourName')} {...field} />
+                        <Input placeholder={t("profile.yourName")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -133,10 +138,10 @@ const MyProfile = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('profile.email')}</FormLabel>
+                      <FormLabel>{t("profile.email")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={t('profile.yourEmail')}
+                          placeholder={t("profile.yourEmail")}
                           type="email"
                           {...field}
                           readOnly
@@ -153,10 +158,10 @@ const MyProfile = () => {
                   name="role"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('profile.role')}</FormLabel>
+                      <FormLabel>{t("profile.role")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={t('profile.yourRole')}
+                          placeholder={t("profile.yourRole")}
                           {...field}
                           readOnly
                           className="bg-muted"
@@ -173,11 +178,11 @@ const MyProfile = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex">
-                        {t('profile.phoneNumber')}
+                        {t("profile.phoneNumber")}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={t('profile.yourPhoneNumber')}
+                          placeholder={t("profile.yourPhoneNumber")}
                           type="tel"
                           {...field}
                           value={field.value || ""}
@@ -193,9 +198,9 @@ const MyProfile = () => {
                   name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('profile.city')}</FormLabel>
+                      <FormLabel>{t("profile.city")}</FormLabel>
                       <div className="space-y-2">
-                        <Input placeholder={t('profile.city')} {...field} />
+                        <Input placeholder={t("profile.city")} {...field} />
                       </div>
                       <FormMessage />
                     </FormItem>
@@ -204,11 +209,13 @@ const MyProfile = () => {
               </div>
 
               <Button type="submit" disabled={loading}>
-                {loading ? t('profile.saving') : t('profile.saveChanges')}
+                {loading ? t("profile.saving") : t("profile.saveChanges")}
               </Button>
             </form>
           </Form>
-        </div>
+        </section>
+        <Separator className="my-4" />
+        <ChangePassWord />
       </div>
     </>
   );

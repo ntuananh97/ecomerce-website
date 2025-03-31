@@ -8,6 +8,7 @@ export interface IRegisterFormValues {
 export interface ILoginFormValues {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 
 export interface IAuthResponse {
@@ -30,4 +31,8 @@ export interface IUpdateMeFormValues {
   role?: string;
 }
 
+export interface IChangePasswordFormValues {
+  currentPassword: string;
+  newPassword: string;
+}
 

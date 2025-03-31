@@ -5,7 +5,8 @@ export const API_ENDPOINT = {
     AUTH_ME: `/auth/me`,
     REGISTER: `/auth/register`,
     LOGIN: `/auth/login`,
-    REFRESH_TOKEN: `/auth/refresh-token`
+    REFRESH_TOKEN: `/auth/refresh-token`,
+    CHANGE_PASSWORD: `/auth/change-password`
   },
   SYSTEM: {
     ROLE: {

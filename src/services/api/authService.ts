@@ -1,4 +1,4 @@
-import { ILoginFormValues, IRegisterFormValues, IAuthResponse, IGetMeResponse, IUpdateMeFormValues } from "@/types/authTypes";
+import { ILoginFormValues, IRegisterFormValues, IAuthResponse, IGetMeResponse, IUpdateMeFormValues, IChangePasswordFormValues } from "@/types/authTypes";
 import api from ".";
 import { API_ENDPOINT } from "./apiEndpoint";
 
@@ -22,3 +22,7 @@ export const updateMe = async (data: IUpdateMeFormValues) => {
   return response.data;
 };
 
+export const changePassword = async (data: IChangePasswordFormValues) => {
+  const response = await api.patch(API_ENDPOINT.AUTH.CHANGE_PASSWORD, data);
+  return response.data;
+};
