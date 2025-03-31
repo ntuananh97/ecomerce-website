@@ -21,7 +21,7 @@ const Login = () => {
   const loginSchema = yup.object({
     email: yup.string().email(t('validation.email.invalid')).required(t('validation.email.required')),
     password: yup.string().required(t('validation.password.required')).min(6, t('validation.password.minLength', { min: 6 })),
-    keepSignedIn: yup.boolean().default(false),
+    keepSignedIn: yup.boolean().default(true),
   });
   
   // Type for our form values
@@ -35,17 +35,21 @@ const Login = () => {
     defaultValues: {
       email: "",
       password: "",
-      keepSignedIn: false,
+      keepSignedIn: true,
     },
     mode: "onChange", // Add validation on change
   });
 
   // Handle form submission
   const onSubmit = async (data: LoginFormValues) => {
-    console.log(data);
+    const formData = {
+      email: data.email,
+      password: data.password,
+      rememberMe: data.keepSignedIn,
+    }
     // Add authentication logic here
     try {
-      await login(data);
+      await login(formData);
       navigate(getAdminRoutes(AdminRoutes.Dashboard));
 
     } catch (error) {

@@ -8,6 +8,7 @@ import LanguageProvider from "./contexts/LanguageProvider";
 import QueryProvider from "./contexts/QueryProvider";
 import { adminRoutes } from "./modules/admin/routes";
 import { clientRoutes } from "./modules/client/routes";
+import { useResetSession } from "./services/queries/useResetSession";
 
 // Create a data router with proper configuration
 const router = createBrowserRouter([...adminRoutes, ...clientRoutes], {
@@ -16,6 +17,8 @@ const router = createBrowserRouter([...adminRoutes, ...clientRoutes], {
 });
 
 function App() {
+  useResetSession();
+  
   return (
     <>
       <ThemeProvider>

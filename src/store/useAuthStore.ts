@@ -13,6 +13,7 @@ interface AuthState {
   isAuthenticated: boolean;
   access_token?: string;
   refresh_token?: string;
+  rememberMe: boolean;
   loading: {
     login: boolean;
     logout: boolean;
@@ -49,7 +50,7 @@ const useAuthStore = create<AuthState>()(
         checkAuth: false,
         updateMe: false,
       },
-
+      rememberMe: true,
       getMe: async () => {
         set((state) => ({ loading: { ...state.loading, checkAuth: true } }));
         try {
@@ -81,8 +82,9 @@ const useAuthStore = create<AuthState>()(
       },
 
       login: async (data: ILoginFormValues) => {
-        set((state) => ({ loading: { ...state.loading, login: true } }));
+        set((state) => ({ rememberMe: data.rememberMe, loading: { ...state.loading, login: true } }));
         try {
+          
           const response = await login(data);
 
           set({
