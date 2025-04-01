@@ -73,5 +73,22 @@
         "success": "Password changed successfully",
         "error": "Password change failed"
       }
+    },
+    "menu": {
+      "Dashboard": "Dashboard",
+      "System": "System",
+      "User": "User",
+      "Role": "Role",
+      "Product Management": "Product Management",
+      "Product List": "Product List",
+      "Product Category": "Product Category",
+      "Comment": "Comment",
+      "Order Management": "Order Management",
+      "Order List": "Order List",
+      "Review List": "Review List",
+      "Setting": "Setting",
+      "City": "City",
+      "Delivery Method": "Delivery Method",
+      "Payment Method": "Payment Method"
     }
-  }
+}

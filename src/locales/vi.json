@@ -73,5 +73,22 @@
         "success": "Đổi mật khẩu thành công",
         "error": "Đổi mật khẩu thất bại"
       }
+    },
+    "menu": {
+      "Dashboard": "Tổng quan",
+      "System": "Hệ thống",
+      "User": "Người dùng",
+      "Role": "Vai trò",
+      "Product Management": "Quản lý sản phẩm",
+      "Product List": "Danh sách sản phẩm",
+      "Product Category": "Danh mục sản phẩm",
+      "Comment": "Bình luận",
+      "Order Management": "Quản lý đơn hàng",
+      "Order List": "Danh sách đơn hàng",
+      "Review List": "Danh sách đánh giá",
+      "Setting": "Cài đặt",
+      "City": "Thành phố",
+      "Delivery Method": "Phương thức giao hàng",
+      "Payment Method": "Phương thức thanh toán"
     }
   }
