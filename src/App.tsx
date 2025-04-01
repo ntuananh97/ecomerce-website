@@ -8,7 +8,7 @@ import LanguageProvider from "./contexts/LanguageProvider";
 import QueryProvider from "./contexts/QueryProvider";
 import { adminRoutes } from "./modules/admin/routes";
 import { clientRoutes } from "./modules/client/routes";
-import { useResetSession } from "./services/queries/useResetSession";
+import { useResetSession } from "./hooks/useResetSession";
 
 // Create a data router with proper configuration
 const router = createBrowserRouter([...adminRoutes, ...clientRoutes], {

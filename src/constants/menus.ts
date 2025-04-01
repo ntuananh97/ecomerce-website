@@ -19,7 +19,7 @@ export const MENUS_NAVBAR = [
       },
       {
         title: "Role",
-        url: "/admin/system/role",
+        url: getAdminRoutes(AdminRoutes.Role),
       },
     ],
   },

@@ -8,10 +8,11 @@ export const API_ENDPOINT = {
     REFRESH_TOKEN: `/auth/refresh-token`,
     CHANGE_PASSWORD: `/auth/change-password`
   },
+  ROLE: {
+    INDEX: `/roles`
+  },
   SYSTEM: {
-    ROLE: {
-      INDEX: `/roles`
-    },
+   
     USER: {
       INDEX: `/users`
     }

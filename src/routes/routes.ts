@@ -8,6 +8,8 @@ export enum AdminRoutes {
   Admin = '/admin',
   Dashboard = 'dashboard',
   MyProfile = 'my-profile',
+  Role = 'role',
+
 }
 
 export enum AuthRoutes {

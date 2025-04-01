@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AdminRoutes } from '@/routes/routes';
 import ProtectedRoute from '@/components/Guard/ProtectedRoute';
 import MyProfile from './pages/MyProfile';
+import Role from './pages/Role';
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -24,6 +25,11 @@ export const adminRoutes: RouteObject[] = [
         path: AdminRoutes.MyProfile,
         element: <MyProfile />,
         handle: { crumb: () => 'My Profile' },
+      },
+      {
+        path: AdminRoutes.Role,
+        element: <Role />,
+        handle: { crumb: () => 'Role' },
       }
     ]
   }
