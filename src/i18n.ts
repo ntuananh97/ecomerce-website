@@ -13,7 +13,7 @@ i18n
       vi: { translation: viTranslation },
     },
     fallbackLng: 'en', // Ngôn ngữ mặc định nếu không phát hiện được
-    debug: true, // Bật debug trong quá trình phát triển
+    debug: false, // Bật debug trong quá trình phát triển
     interpolation: {
       escapeValue: false, // React đã xử lý XSS, không cần escape
     },

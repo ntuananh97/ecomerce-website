@@ -1,12 +1,12 @@
 import { IRole } from "@/types/roleTypes";
 import { IRoleResponse } from "@/types/roleTypes";
-import { IRoleParams } from "@/types/roleTypes";
 import api from ".";
 import { API_ENDPOINT } from "./apiEndpoint";
+import { IQueryParams } from "@/types/commonQuery";
 
 
 
-export const getRoles = async (params: IRoleParams = {}): Promise<IRoleResponse> => {
+export const getRoles = async (params: IQueryParams = {}): Promise<IRoleResponse> => {
   const response = await api.get(API_ENDPOINT.ROLE.INDEX, { params });
   return response.data;
 };

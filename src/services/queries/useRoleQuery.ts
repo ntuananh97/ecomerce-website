@@ -19,7 +19,15 @@ export const ROLE_QUERY_KEY = {
 export const useRoles = (params: IQueryParams = {}) => {
   return useQuery({
     queryKey: [...ROLE_QUERY_KEY.all, params],
-    queryFn: () => getRoles(params),
+    queryFn: () => {
+      const newParams = {
+        ...params,
+        order: `${params.sortBy} ${params.sortOrder}`
+      };
+      delete newParams.sortBy;
+      delete newParams.sortOrder;
+      return getRoles(newParams);
+    },
   });
 };
 

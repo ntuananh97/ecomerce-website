@@ -1,5 +1,3 @@
-
-
 export interface IRole {
   _id: string;
   name: string;
@@ -14,8 +12,4 @@ export interface IRoleResponse {
   };
 }
 
-export interface IRoleParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-}
+
