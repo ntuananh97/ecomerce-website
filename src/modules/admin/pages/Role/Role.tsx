@@ -19,8 +19,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import DeleteConfirmation from "@/components/DeleteConfirmation/DeleteConfirmation";
+import AddEditRoleDialog from "@/components/Dialog/AddEditRoleDialog/AddEditRoleDialog";
+import { useTranslation } from "react-i18next";
 
 const Role = () => {
+  const { t } = useTranslation();
   const [queryParams, setQueryParams] = useState<IQueryParams>({
     ...DEFAULT_QUERY_PAGE,
     sortBy: "name",
@@ -45,10 +48,11 @@ const Role = () => {
 
   const roles = data?.data?.roles || [];
   const totalPage = data?.data?.totalPage || 0;
-  const { mutate: deleteRole } = useDeleteRole();
+  const { mutate: deleteRole, isPending: isDeleting } = useDeleteRole();
 
   const [selectedRole, setSelectedRole] = useState<IRole | null>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDeleteClick = (role: IRole) => {
     setSelectedRole(role);
@@ -70,26 +74,40 @@ const Role = () => {
     setQueryParams((prev) => ({ ...prev, page }));
   };
 
+  const handleAddClick = () => {
+    setSelectedRole(null);
+    setDialogOpen(true);
+  };
+
+  const handleEditClick = (role: IRole) => {
+    setSelectedRole(role);
+    setDialogOpen(true);
+  };
+
   const columns: SortableColumn<IRole>[] = [
     {
       key: "name",
-      label: "Name",
+      label: t("roles.name"),
       sortable: true,
     },
     {
       key: "actions",
-      label: "Actions",
+      label: t("common.actions"),
       align: "right",
       renderCell: (role) => (
         <div className="flex justify-end space-x-2">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => handleEditClick(role)}
+                >
                   <Edit className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Edit</TooltipContent>
+              <TooltipContent>{t("common.edit")}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
           <TooltipProvider>
@@ -103,7 +121,7 @@ const Role = () => {
                   <Trash2 className="h-4 w-4 text-destructive" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Delete</TooltipContent>
+              <TooltipContent>{t("common.delete")}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
@@ -115,11 +133,11 @@ const Role = () => {
 
   return (
     <>
-      <title>Roles Management</title>
+      <title>{t("roles.management")}</title>
       <div className="p-4 space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Roles Management</h1>
-          <Button>Add New Role</Button>
+          <h1 className="text-2xl font-bold">{t("roles.management")}</h1>
+          <Button onClick={handleAddClick}>{t("roles.addNew")}</Button>
         </div>
 
         <RoleSearch onSearch={handleSearch} />
@@ -130,7 +148,7 @@ const Role = () => {
           isLoading={isLoading}
           onSort={onSort}
           keyExtractor="_id"
-          noDataMessage="No roles found"
+          noDataMessage={t("roles.noRolesFound")}
         />
 
         {shouldShowPagination && (
@@ -146,7 +164,14 @@ const Role = () => {
           onClose={() => setDeleteDialogOpen(false)}
           onConfirm={handleDelete}
           itemName={selectedRole?.name}
-          title="Delete Role"
+          title={t("roles.deleteRole")}
+          isLoading={isDeleting}
+        />
+
+        <AddEditRoleDialog
+          isOpen={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          role={selectedRole}
         />
       </div>
     </>

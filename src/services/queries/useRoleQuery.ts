@@ -2,14 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createRole, deleteRole, getRole, getRoles, updateRole } from "../api/roleServices";
 import { toast } from "react-toastify";
 import { IQueryParams } from "@/types/commonQuery";
+import { handleAxiosError } from "@/utils/errorHandler";
+import { t } from "i18next";
 
-interface ErrorResponse {
-  response?: {
-    data?: {
-      message?: string;
-    };
-  };
-}
 
 export const ROLE_QUERY_KEY = {
   all: ["roles"],
@@ -46,10 +41,12 @@ export const useCreateRole = () => {
     mutationFn: (data: { name: string }) => createRole(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ROLE_QUERY_KEY.all });
-      toast.success("Role created successfully");
+      toast.success(t("common.createSuccess"));
     },
-    onError: (error: ErrorResponse) => {
-      toast.error(error?.response?.data?.message || "Failed to create role");
+    onError: (error: unknown) => {
+      handleAxiosError({error, customErrorMessages: {
+        ALREADY_EXIST: t("error.ALREADY_EXIST_CUSTOM", {itemName: t("roles.role_name")})
+      }});
     },
   });
 };
@@ -62,10 +59,12 @@ export const useUpdateRole = () => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ROLE_QUERY_KEY.all });
       queryClient.invalidateQueries({ queryKey: ROLE_QUERY_KEY.detail(variables.id) });
-      toast.success("Role updated successfully");
+      toast.success(t("common.updateSuccess"));
     },
-    onError: (error: ErrorResponse) => {
-      toast.error(error?.response?.data?.message || "Failed to update role");
+    onError: (error: unknown) => {
+      handleAxiosError({error, customErrorMessages: {
+        ALREADY_EXIST: t("error.ALREADY_EXIST_CUSTOM", {itemName: t("roles.role_name")})
+      }});
     },
   });
 };
@@ -77,10 +76,10 @@ export const useDeleteRole = () => {
     mutationFn: (id: string) => deleteRole(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ROLE_QUERY_KEY.all });
-      toast.success("Role deleted successfully");
+      toast.success(t("common.deleteSuccess"));
     },
-    onError: (error: ErrorResponse) => {
-      toast.error(error?.response?.data?.message || "Failed to delete role");
+    onError: (error: unknown) => {
+      handleAxiosError({error});
     },
   });
 };

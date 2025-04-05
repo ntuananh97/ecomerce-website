@@ -52,12 +52,12 @@ const Register = () => {
         email: data.email,
         password: data.password
       });
-      toast.success("Registration successful!");
+      toast.success(t("register.success"));
       setTimeout(() => {
         navigate(getAuthRoutes(AuthRoutes.Login));
       }, 500);
     } catch (error) {
-      handleAxiosError(error, "Registration failed");
+      handleAxiosError({error, defaultMessage: t("register.error")});
     }
   };
 

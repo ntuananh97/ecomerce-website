@@ -31,6 +31,22 @@
         "required": "Mật khẩu mới là bắt buộc"
       }
     },
+    "common": {
+      "actions": "Hành động",
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "cancel": "Hủy",
+      "create": "Tạo",
+      "update": "Cập nhật",
+      "thisItem": "mục này",
+      "deleteConfirmation": "Bạn có chắc chắn muốn xóa {{itemName}}? Hành động này không thể hoàn tác.",
+      "deleteSuccess": "Xóa thành công",
+      "deleteFailed": "Xóa thất bại",
+      "updateSuccess": "Cập nhật thành công",
+      "updateFailed": "Cập nhật thất bại",
+      "createSuccess": "Tạo thành công",
+      "createFailed": "Tạo thất bại"
+    },
     "login": {
       "title": "Đăng nhập",
       "keepSignedIn": "Giữ đăng nhập",
@@ -38,7 +54,8 @@
       "signInButton": "Đăng nhập",
       "signingIn": "Đang đăng nhập...",
       "noAccount": "Bạn chưa có tài khoản?",
-      "signUp": "Đăng ký"
+      "signUp": "Đăng ký",
+      "error": "Đăng nhập thất bại"
     },
     "register": {
       "title": "Tạo tài khoản",
@@ -48,7 +65,9 @@
       "signUpButton": "Đăng ký",
       "creatingAccount": "Đang tạo tài khoản...",
       "haveAccount": "Bạn đã có tài khoản?",
-      "signIn": "Đăng nhập"
+      "signIn": "Đăng nhập",
+      "error": "Đăng ký thất bại",
+      "success": "Đăng ký thành công"
     },
     "profile": {
       "title": "Hồ sơ của tôi",
@@ -74,6 +93,23 @@
         "error": "Đổi mật khẩu thất bại"
       }
     },
+    "roles": {
+      "management": "Quản lý vai trò",
+      "name": "Tên",
+      "role_name": "Tên vai trò",
+      "addNew": "Thêm vai trò mới",
+      "noRolesFound": "Không tìm thấy vai trò nào",
+      "deleteRole": "Xóa vai trò",
+      "editRole": "Chỉnh sửa vai trò",
+      "createNewRole": "Tạo vai trò mới",
+      "roleName": "Tên vai trò",
+      "enterRoleName": "Nhập tên vai trò",
+      "searchRoles": "Tìm kiếm vai trò...",
+      "validation": {
+        "nameRequired": "Tên vai trò là bắt buộc",
+        "nameMinLength": "Tên phải có ít nhất 2 ký tự"
+      }
+    },
     "menu": {
       "Dashboard": "Tổng quan",
       "System": "Hệ thống",
@@ -90,5 +126,10 @@
       "City": "Thành phố",
       "Delivery Method": "Phương thức giao hàng",
       "Payment Method": "Phương thức thanh toán"
+    },
+    "error": {
+      "ALREADY_EXIST": "Dữ liệu đã tồn tại",
+      "ALREADY_EXIST_CUSTOM": "{{itemName}} đã tồn tại",
+      "DEFAULT": "Đã xảy ra lỗi. Vui lòng thử lại."
     }
-  }
+}

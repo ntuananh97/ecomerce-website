@@ -56,7 +56,7 @@ const ChangePassWord = () => {
       toast.success(t("profile.changePassword.success"));
       form.reset();
     } catch (error) {
-      handleAxiosError(error, t("profile.changePassword.error"));
+      handleAxiosError({error, defaultMessage: t("profile.changePassword.error")});
     }
   };
 

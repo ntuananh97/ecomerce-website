@@ -53,7 +53,7 @@ const Login = () => {
       navigate(getAdminRoutes(AdminRoutes.Dashboard));
 
     } catch (error) {
-      handleAxiosError(error, "Login failed");
+      handleAxiosError({error, defaultMessage: t("login.error")});
     }
   };
 

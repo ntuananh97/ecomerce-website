@@ -31,6 +31,22 @@
         "required": "New password is required"
       }
     },
+    "common": {
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "create": "Create",
+      "update": "Update",
+      "thisItem": "this item",
+      "deleteConfirmation": "Are you sure you want to delete {{itemName}}? This action cannot be undone.",
+      "deleteSuccess": "Delete successfully",
+      "deleteFailed": "Delete failed",
+      "updateSuccess": "Update successfully",
+      "updateFailed": "Update failed",
+      "createSuccess": "Create successfully",
+      "createFailed": "Create failed"
+    },
     "login": {
       "title": "Sign in",
       "keepSignedIn": "Keep me signed in",
@@ -38,7 +54,8 @@
       "signInButton": "Sign in",
       "signingIn": "Signing in...",
       "noAccount": "Don't have an account?",
-      "signUp": "Sign up"
+      "signUp": "Sign up",
+      "error": "Login failed"
     },
     "register": {
       "title": "Create an account",
@@ -48,7 +65,9 @@
       "signUpButton": "Sign up",
       "creatingAccount": "Creating account...",
       "haveAccount": "Already have account?",
-      "signIn": "Sign in"
+      "signIn": "Sign in",
+      "error": "Registration failed",
+      "success": "Registration successful"
     },
     "profile": {
       "title": "My Profile",
@@ -74,6 +93,23 @@
         "error": "Password change failed"
       }
     },
+    "roles": {
+      "management": "Roles Management",
+      "name": "Name",
+      "role_name": "Role Name",
+      "addNew": "Add New Role",
+      "noRolesFound": "No roles found",
+      "deleteRole": "Delete Role",
+      "editRole": "Edit Role",
+      "createNewRole": "Create New Role",
+      "roleName": "Role Name",
+      "enterRoleName": "Enter role name",
+      "searchRoles": "Search roles...",
+      "validation": {
+        "nameRequired": "Role name is required",
+        "nameMinLength": "Name must be at least 2 characters"
+      }
+    },
     "menu": {
       "Dashboard": "Dashboard",
       "System": "System",
@@ -90,5 +126,10 @@
       "City": "City",
       "Delivery Method": "Delivery Method",
       "Payment Method": "Payment Method"
+    },
+    "error": {
+      "ALREADY_EXIST": "The data is existed",
+      "ALREADY_EXIST_CUSTOM": "{{itemName}} already exists",
+      "DEFAULT": "Something went wrong. Please try again."
     }
 }
