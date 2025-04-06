@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRoles, useDeleteRole } from "@/services/queries/useRoleQuery";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, Shield } from "lucide-react";
 import { type IRole } from "@/types/roleTypes";
 import { DEFAULT_QUERY_PAGE } from "@/constants";
 import { IQueryParams } from "@/types/commonQuery";
@@ -21,9 +21,12 @@ import {
 import DeleteConfirmation from "@/components/DeleteConfirmation/DeleteConfirmation";
 import AddEditRoleDialog from "@/components/Dialog/AddEditRoleDialog/AddEditRoleDialog";
 import { useTranslation } from "react-i18next";
+import api from "@/services/api";
+import { useNavigate } from "react-router-dom";
 
 const Role = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [queryParams, setQueryParams] = useState<IQueryParams>({
     ...DEFAULT_QUERY_PAGE,
     sortBy: "name",
@@ -45,6 +48,20 @@ const Role = () => {
   const { data, isLoading } = useRoles({
     ...queryParams,
   });
+
+
+  useEffect(() => {
+    const id = "67f2933ccdb4dbf726d4c705"
+    api.get(`roles/${id}/permissions`)
+    .then((res) => {
+      console.log("res", res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    
+  }, [])
+  
 
   const roles = data?.data?.roles || [];
   const totalPage = data?.data?.totalPage || 0;
@@ -84,6 +101,10 @@ const Role = () => {
     setDialogOpen(true);
   };
 
+  const handleAssignPermission = (role: IRole) => {
+    navigate(`/admin/roles/permissions/${role._id}`);
+  };
+
   const columns: SortableColumn<IRole>[] = [
     {
       key: "name",
@@ -96,6 +117,20 @@ const Role = () => {
       align: "right",
       renderCell: (role) => (
         <div className="flex justify-end space-x-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => handleAssignPermission(role)}
+                >
+                  <Shield className="h-4 w-4 text-primary" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t("roles.assignPermissions")}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>

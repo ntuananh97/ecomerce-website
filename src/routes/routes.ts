@@ -1,5 +1,3 @@
-
-
 export enum Routes {
   Home = '/',
 }
@@ -8,8 +6,8 @@ export enum AdminRoutes {
   Admin = '/admin',
   Dashboard = 'dashboard',
   MyProfile = 'my-profile',
-  Role = 'role',
-
+  Role = 'roles',
+  RolePermission = 'roles/permissions/:id',
 }
 
 export enum AuthRoutes {

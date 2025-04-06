@@ -5,6 +5,7 @@ import { AdminRoutes } from '@/routes/routes';
 import ProtectedRoute from '@/components/Guard/ProtectedRoute';
 import MyProfile from './pages/MyProfile';
 import Role from './pages/Role';
+import RolePermission from './pages/Role/RolePermission';
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -30,6 +31,11 @@ export const adminRoutes: RouteObject[] = [
         path: AdminRoutes.Role,
         element: <Role />,
         handle: { crumb: () => 'Role' },
+      },
+      {
+        path: AdminRoutes.RolePermission,
+        element: <RolePermission />,
+        handle: { crumb: () => 'Role Permissions' },
       }
     ]
   }

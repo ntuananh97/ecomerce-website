@@ -30,3 +30,13 @@ export const deleteRole = async (id: string): Promise<void> => {
   const response = await api.delete(`${API_ENDPOINT.ROLE.INDEX}/${id}`);
   return response.data;
 };
+
+export const getRolePermissions = async (id: string) => {
+  const response = await api.get(`${API_ENDPOINT.ROLE.INDEX}/${id}/permissions`);
+  return response.data;
+};
+
+export const updateRolePermissions = async (id: string, permissions: string[]) => {
+  const response = await api.put(`${API_ENDPOINT.ROLE.INDEX}/${id}`, { permissions });
+  return response.data;
+};
