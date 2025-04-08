@@ -1,8 +1,8 @@
-import { IRole } from "@/types/roleTypes";
+import { IRole, IUpdateRole } from "@/types/roleTypes";
 import { IRoleResponse } from "@/types/roleTypes";
 import api from ".";
 import { API_ENDPOINT } from "./apiEndpoint";
-import { IQueryParams } from "@/types/commonQuery";
+import { IQueryParams, IQueryResponseFromApi } from "@/types/commonQuery";
 
 
 
@@ -11,7 +11,7 @@ export const getRoles = async (params: IQueryParams = {}): Promise<IRoleResponse
   return response.data;
 };
 
-export const getRole = async (id: string): Promise<IRole> => {
+export const getRole = async (id: string): Promise<IQueryResponseFromApi<IRole>> => {
   const response = await api.get(`${API_ENDPOINT.ROLE.INDEX}/${id}`);
   return response.data;
 };
@@ -21,7 +21,7 @@ export const createRole = async (data: { name: string }): Promise<IRole> => {
   return response.data;
 };
 
-export const updateRole = async (id: string, data: { name: string }): Promise<IRole> => {
+export const updateRole = async (id: string, data: IUpdateRole['data']): Promise<IRole> => {
   const response = await api.put(`${API_ENDPOINT.ROLE.INDEX}/${id}`, data);
   return response.data;
 };

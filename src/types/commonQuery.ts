@@ -6,4 +6,7 @@ export  interface IQueryParams {
   sortOrder?: 'asc' | 'desc';
 }
 
+export interface IQueryResponseFromApi<T> {
+  data: T;
+}
 

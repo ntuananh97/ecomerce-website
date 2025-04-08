@@ -12,4 +12,22 @@ export interface IRoleResponse {
   };
 }
 
+export interface IRolePermissionResponse {
+  checked: boolean;
+  value: string;
+  children?: IRolePermissionResponse[];
+}
+
+export interface IRolePermissionsResponseFromApi {
+  permissions: IRolePermissionResponse[];
+  role: IRole;
+}
+
+export interface IUpdateRole {
+  id: string;
+  data: {
+    name?: string;
+    permissions?: string[];
+  };
+}
 

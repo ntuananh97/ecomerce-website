@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createRole, deleteRole, getRole, getRolePermissions, getRoles, updateRole, updateRolePermissions } from "../api/roleServices";
 import { toast } from "react-toastify";
-import { IQueryParams } from "@/types/commonQuery";
+import { IQueryParams, IQueryResponseFromApi } from "@/types/commonQuery";
 import { handleAxiosError } from "@/utils/errorHandler";
 import { t } from "i18next";
+import { IRole, IRolePermissionsResponseFromApi, IUpdateRole } from "@/types/roleTypes";
 
 
 export const ROLE_QUERY_KEY = {
@@ -28,7 +29,7 @@ export const useRoles = (params: IQueryParams = {}) => {
 };
 
 export const useRole = (id: string) => {
-  return useQuery({
+  return useQuery<IQueryResponseFromApi<IRole>>({
     queryKey: ROLE_QUERY_KEY.detail(id),
     queryFn: () => getRole(id),
     enabled: !!id,
@@ -56,10 +57,9 @@ export const useUpdateRole = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: { name: string } }) => updateRole(id, data),
-    onSuccess: (_, variables) => {
+    mutationFn: (payload: IUpdateRole) => updateRole(payload.id, payload.data),
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ROLE_QUERY_KEY.all });
-      queryClient.invalidateQueries({ queryKey: ROLE_QUERY_KEY.detail(variables.id) });
       toast.success(t("common.updateSuccess"));
     },
     onError: (error: unknown) => {
@@ -86,7 +86,7 @@ export const useDeleteRole = () => {
 };
 
 export const useRolePermissions = (id: string) => {
-  return useQuery({
+  return useQuery<IQueryResponseFromApi<IRolePermissionsResponseFromApi>>({
     queryKey: ROLE_QUERY_KEY.permissions(id),
     queryFn: () => getRolePermissions(id),
     enabled: !!id,

@@ -12,7 +12,7 @@ interface ButtonLoadingProps extends
   asChild?: boolean;
 }
 
-const ButtonLoading = ({ 
+const LoadingButton = ({ 
   isLoading = false, 
   children,
   ...props 
@@ -25,4 +25,4 @@ const ButtonLoading = ({
   );
 };
 
-export default ButtonLoading;
+export default LoadingButton;
