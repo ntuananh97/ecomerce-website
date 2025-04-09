@@ -45,7 +45,9 @@
       "updateSuccess": "Cập nhật thành công",
       "updateFailed": "Cập nhật thất bại",
       "createSuccess": "Tạo thành công",
-      "createFailed": "Tạo thất bại"
+      "createFailed": "Tạo thất bại",
+      "loading": "Đang tải...",
+      "save": "Lưu"
     },
     "login": {
       "title": "Đăng nhập",
@@ -108,7 +110,10 @@
       "validation": {
         "nameRequired": "Tên vai trò là bắt buộc",
         "nameMinLength": "Tên phải có ít nhất 2 ký tự"
-      }
+      },
+      "assignPermissions": "Phân quyền",
+      "rolePermissions": "Quyền vai trò",
+      "permissionsFor": "Quyền cho"
     },
     "menu": {
       "Dashboard": "Tổng quan",
@@ -131,5 +136,13 @@
       "ALREADY_EXIST": "Dữ liệu đã tồn tại",
       "ALREADY_EXIST_CUSTOM": "{{itemName}} đã tồn tại",
       "DEFAULT": "Đã xảy ra lỗi. Vui lòng thử lại."
+    },
+    "unauthorized": {
+      "title": "Truy cập bị từ chối",
+      "subtitle": "Bạn không có quyền truy cập trang này",
+      "alertTitle": "Quyền truy cập bị từ chối",
+      "alertDescription": "Bạn không có quyền cần thiết để xem tài nguyên này. Nếu bạn cho rằng đây là lỗi, vui lòng liên hệ với quản trị viên.",
+      "goBack": "Quay lại",
+      "home": "Trang chủ"
     }
 }

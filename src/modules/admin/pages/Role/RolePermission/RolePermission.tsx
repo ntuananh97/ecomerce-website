@@ -1,7 +1,7 @@
 import { useEffect, useState,  } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import {
   useRolePermissions,
   useUpdateRole,
@@ -10,6 +10,8 @@ import { useTranslation } from "react-i18next";
 import PermissionItemComponent from "./PermissionItem";
 import LoadingButton from "@/components/LoadingButton";
 import { IRolePermissionResponse } from "@/types/roleTypes";
+import { AdminRoutes, getAdminRoutes } from "@/routes/routes";
+import Loading from "@/components/Loading";
 
 const RolePermission = () => {
   const { t } = useTranslation();
@@ -69,17 +71,14 @@ const RolePermission = () => {
   };
 
   const handleBack = () => {
-    navigate("/admin/roles");
+    navigate(getAdminRoutes(AdminRoutes.Role));
   };
 
 
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2 className="h-8 w-8 animate-spin" />
-        <span className="ml-2">{t("common.loading")}</span>
-      </div>
+      <Loading />
     );
   }
 

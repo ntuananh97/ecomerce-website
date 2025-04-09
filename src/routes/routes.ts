@@ -8,6 +8,7 @@ export enum AdminRoutes {
   MyProfile = 'my-profile',
   Role = 'roles',
   RolePermission = 'roles/permissions/:id',
+  Unauthorized = 'unauthorized',
 }
 
 export enum AuthRoutes {

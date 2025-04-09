@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRoles, useDeleteRole } from "@/services/queries/useRoleQuery";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash2, Shield } from "lucide-react";
@@ -21,10 +21,16 @@ import {
 import DeleteConfirmation from "@/components/DeleteConfirmation/DeleteConfirmation";
 import AddEditRoleDialog from "@/components/Dialog/AddEditRoleDialog/AddEditRoleDialog";
 import { useTranslation } from "react-i18next";
-import api from "@/services/api";
 import { useNavigate } from "react-router-dom";
+import { PERMISSIONS } from "@/constants/permissions";
+import { AdminRoutes, getAdminRoutes } from "@/routes/routes";
+import { hasPermission } from "@/utils/permission";
 
 const Role = () => {
+  const hasDeletePermision = hasPermission([PERMISSIONS.SYSTEM.ROLE.DELETE]);
+  const hasEditPermision = hasPermission([PERMISSIONS.SYSTEM.ROLE.UPDATE]);
+  const hasAddPermision = hasPermission([PERMISSIONS.SYSTEM.ROLE.CREATE]);
+
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [queryParams, setQueryParams] = useState<IQueryParams>({
@@ -32,6 +38,10 @@ const Role = () => {
     sortBy: "name",
     sortOrder: "asc",
   });
+
+  const idAmindOrBasicRole = (item: IRole) =>
+    item.permissions.includes(PERMISSIONS.ADMIN) ||
+    item.permissions.includes(PERMISSIONS.BASIC);
 
   const { onSort } = useSorting({
     defaultSortBy: queryParams.sortBy,
@@ -48,20 +58,6 @@ const Role = () => {
   const { data, isLoading } = useRoles({
     ...queryParams,
   });
-
-
-  useEffect(() => {
-    const id = "67f2933ccdb4dbf726d4c705"
-    api.get(`roles/${id}/permissions`)
-    .then((res) => {
-      console.log("res", res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-    
-  }, [])
-  
 
   const roles = data?.data?.roles || [];
   const totalPage = data?.data?.totalPage || 0;
@@ -102,7 +98,7 @@ const Role = () => {
   };
 
   const handleAssignPermission = (role: IRole) => {
-    navigate(`/admin/roles/permissions/${role._id}`);
+    navigate(getAdminRoutes(`${AdminRoutes.RolePermission}/${role._id}`));
   };
 
   const columns: SortableColumn<IRole>[] = [
@@ -115,52 +111,64 @@ const Role = () => {
       key: "actions",
       label: t("common.actions"),
       align: "right",
-      renderCell: (role) => (
-        <div className="flex justify-end space-x-2">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => handleAssignPermission(role)}
-                >
-                  <Shield className="h-4 w-4 text-primary" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t("roles.assignPermissions")}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => handleEditClick(role)}
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t("common.edit")}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => handleDeleteClick(role)}
-                >
-                  <Trash2 className="h-4 w-4 text-destructive" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t("common.delete")}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      ),
+      renderCell: (role) => {
+        if (idAmindOrBasicRole(role)) return null;
+        return (
+          <div className="flex justify-end space-x-2">
+            {hasEditPermision && (
+              <>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleAssignPermission(role)}
+                      >
+                        <Shield className="h-4 w-4 text-primary" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {t("roles.assignPermissions")}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleEditClick(role)}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>{t("common.edit")}</TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </>
+            )}
+
+            {hasDeletePermision && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDeleteClick(role)}
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("common.delete")}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
+        );
+      },
     },
   ];
 
@@ -172,7 +180,9 @@ const Role = () => {
       <div className="p-4 space-y-4">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">{t("roles.management")}</h1>
-          <Button onClick={handleAddClick}>{t("roles.addNew")}</Button>
+          {hasAddPermision && (
+            <Button onClick={handleAddClick}>{t("roles.addNew")}</Button>
+          )}
         </div>
 
         <RoleSearch onSearch={handleSearch} />
@@ -193,15 +203,16 @@ const Role = () => {
             onPageChange={handlePageChange}
           />
         )}
-
-        <DeleteConfirmation
-          isOpen={deleteDialogOpen}
-          onClose={() => setDeleteDialogOpen(false)}
-          onConfirm={handleDelete}
-          itemName={selectedRole?.name}
-          title={t("roles.deleteRole")}
-          isLoading={isDeleting}
-        />
+        {hasDeletePermision && (
+          <DeleteConfirmation
+            isOpen={deleteDialogOpen}
+            onClose={() => setDeleteDialogOpen(false)}
+            onConfirm={handleDelete}
+            itemName={selectedRole?.name}
+            title={t("roles.deleteRole")}
+            isLoading={isDeleting}
+          />
+        )}
 
         <AddEditRoleDialog
           isOpen={dialogOpen}

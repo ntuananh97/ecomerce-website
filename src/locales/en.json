@@ -45,7 +45,9 @@
       "updateSuccess": "Update successfully",
       "updateFailed": "Update failed",
       "createSuccess": "Create successfully",
-      "createFailed": "Create failed"
+      "createFailed": "Create failed",
+      "loading": "Loading...",
+      "save": "Save"
     },
     "login": {
       "title": "Sign in",
@@ -108,7 +110,10 @@
       "validation": {
         "nameRequired": "Role name is required",
         "nameMinLength": "Name must be at least 2 characters"
-      }
+      },
+      "assignPermissions": "Assign Permissions",
+      "rolePermissions": "Role Permissions",
+      "permissionsFor": "Permissions for"
     },
     "menu": {
       "Dashboard": "Dashboard",
@@ -131,5 +136,13 @@
       "ALREADY_EXIST": "The data is existed",
       "ALREADY_EXIST_CUSTOM": "{{itemName}} already exists",
       "DEFAULT": "Something went wrong. Please try again."
+    },
+    "unauthorized": {
+      "title": "Unauthorized Access",
+      "subtitle": "You don't have permission to access this page",
+      "alertTitle": "Access Denied",
+      "alertDescription": "You don't have the necessary permissions to view this resource. If you believe this is an error, please contact your administrator.",
+      "goBack": "Go Back",
+      "home": "Home"
     }
 }

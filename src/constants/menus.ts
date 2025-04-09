@@ -1,12 +1,13 @@
 import { BookOpen, Settings2, LayoutDashboard, User, ShoppingCart } from "lucide-react";
 import { AdminRoutes, getAdminRoutes } from "../routes/routes";
-
+import { PERMISSIONS } from "./permissions";
 export const MENUS_NAVBAR = [
   {
     title: "Dashboard",
     url: getAdminRoutes(AdminRoutes.Dashboard),
     icon: LayoutDashboard,
     isActive: true,
+    permissions: [PERMISSIONS.DASHBOARD],
   },
   {
     title: "System",
@@ -16,10 +17,12 @@ export const MENUS_NAVBAR = [
       {
         title: "User",
         url: "/admin/system/user",
+        permissions: [PERMISSIONS.SYSTEM.USER.VIEW],
       },
       {
         title: "Role",
         url: getAdminRoutes(AdminRoutes.Role),
+        permissions: [PERMISSIONS.SYSTEM.ROLE.VIEW],
       },
     ],
   },
@@ -31,6 +34,7 @@ export const MENUS_NAVBAR = [
       {
         title: "Product List",
         url: "/admin/manage-product/list-product",
+        permissions: [PERMISSIONS.MANAGE_PRODUCT.PRODUCT.VIEW],
       },
       {
         title: "Product Category",
@@ -45,11 +49,12 @@ export const MENUS_NAVBAR = [
   {
     title: "Order Management",
     // url: "/admin/manage-order",
-    icon: ShoppingCart ,
+    icon: ShoppingCart,
     items: [
       {
         title: "Order List",
         url: "/admin/manage-order/list-order",
+        permissions: [PERMISSIONS.MANAGE_ORDER.ORDER.VIEW],
       },
       {
         title: "Review List",
